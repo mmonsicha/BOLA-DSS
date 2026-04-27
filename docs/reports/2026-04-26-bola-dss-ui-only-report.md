@@ -117,6 +117,41 @@
 5. เพิ่ม mock menu group ให้ sidebar ยาวขึ้นในสไตล์ DSS
 6. ล็อก content padding หลักเป็น `24px` รอบด้าน
 
+## สถานะความเหมือน DSS ล่าสุด
+
+### ทำให้ตรงได้แล้ว
+
+1. `TopNavbar` ใช้ runtime component ของ DSS โดยตรง
+2. `Sidebar` ใช้ runtime component ของ DSS โดยตรง
+3. main content ถูกห่อด้วย container ภายในและใช้ padding `24px`
+4. notification action ซ้ำถูกลบออก เหลือ notification entry หลักของ `TopNavbar`
+5. shell แยกเป็น `TopNavbar` ด้านบน และ `Sidebar + Content` ด้านล่างชัดเจนขึ้น
+
+### ยังไม่เหมือน DSS 100%
+
+1. ปุ่ม toggle sidebar บน desktop ยังต้องวางซ้อนเพิ่มเอง
+   - สาเหตุ: `TopNavbar` runtime ไม่มี API สำหรับ desktop sidebar toggle pattern โดยตรง
+   - ผล: แม้ใช้ `DSButton` แล้ว แต่ยังเป็น custom placement ไม่ใช่ pattern ที่ package สร้างให้มาเอง
+
+2. group expand/collapse ราย section ใน `Sidebar` ยังทำไม่ได้แบบ native
+   - สาเหตุ: `SidebarGroup` ของ runtime มีแค่ `label` และ `items`
+   - ไม่มี state/API สำหรับ `expanded`, `onToggleGroup`, หรือ accordion behavior ต่อ group
+   - ผล: เมนูยาวขึ้นได้ แต่ยังไม่มี action expand ต่อกลุ่มแบบที่ต้องการ
+
+3. ไม่มี `Container` component เฉพาะใน package runtime ชุดนี้
+   - สาเหตุ: typings/runtime ปัจจุบันไม่ export `Container`
+   - ผล: ต้องใช้ wrapper div ที่อิง token แทน
+
+## ข้อเสนอแนะถ้าจะให้เหมือน DSS เป๊ะกว่านี้
+
+1. ฝั่ง DSS ควรเพิ่ม canonical AppShell composition
+   - `TopNavbar` ที่รองรับ desktop shell toggle
+   - `Sidebar` ที่รองรับ group expand/collapse
+
+2. ถ้ายังไม่มีการเพิ่มใน package
+   - โปรเจกต์นี้จะต้องทำ custom shell layer ทับ DSS runtime
+   - วิธีนี้ทำให้หน้าตาใกล้ขึ้นได้ แต่จะไม่ใช่ “ใช้ component runtime ตรง ๆ 100%” ในความหมายเคร่งครัด
+
 ## ปัญหาที่พบและวิธีแก้
 
 ### ปัญหา

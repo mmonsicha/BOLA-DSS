@@ -11,7 +11,6 @@ import {
   type TopNavbarUser,
 } from "@uxuissk/design-system";
 import {
-  BellRing,
   Database,
   LayoutDashboard,
   MessageCircle,
@@ -33,13 +32,6 @@ interface ShellProps {
   onNavigate: (route: RouteKey) => void;
   children: ReactNode;
 }
-
-type PrototypeNavId =
-  | RouteKey
-  | "broadcasts"
-  | "auto-reply"
-  | "ai-tools"
-  | "settings";
 
 const navGroups: SidebarGroup[] = [
   {
@@ -110,20 +102,6 @@ export function Shell({ route, onNavigate, children }: ShellProps) {
     setSidebarCollapsed((current) => !current);
   };
 
-  const topbarActions = (
-    <div className="prototype-topnav-actions">
-      <Badge variant="outline">Prototype</Badge>
-      <DSButton
-        variant="ghost"
-        size="md"
-        onClick={() => setNotificationsOpen(true)}
-        aria-label="Open notifications"
-      >
-        <BellRing size={16} />
-      </DSButton>
-    </div>
-  );
-
   return (
     <div className="prototype-shell">
       <div className="prototype-topnav">
@@ -138,10 +116,11 @@ export function Shell({ route, onNavigate, children }: ShellProps) {
           notificationCount={unreadCount}
           onNotificationClick={() => setNotificationsOpen(true)}
           onMobileMenuClick={handleShellToggle}
-          actions={topbarActions}
+          actions={<Badge variant="outline">Prototype</Badge>}
         />
         <div className="prototype-topnav-toggle">
           <DSButton
+            className="prototype-topnav-toggle-button"
             variant="ghost"
             size="md"
             onClick={handleShellToggle}
@@ -207,10 +186,12 @@ export function Shell({ route, onNavigate, children }: ShellProps) {
           </Drawer>
 
           <main className="prototype-content" aria-label={pageTitles[route]}>
-            {children}
-            <div className="prototype-footer-note">
-              <Database size={14} style={{ marginRight: "8px", verticalAlign: "middle" }} />
-              DSS-only front-end prototype with local mock data and no backend dependency.
+            <div className="prototype-container">
+              {children}
+              <div className="prototype-footer-note">
+                <Database size={14} style={{ marginRight: "8px", verticalAlign: "middle" }} />
+                DSS-only front-end prototype with local mock data and no backend dependency.
+              </div>
             </div>
           </main>
         </div>
