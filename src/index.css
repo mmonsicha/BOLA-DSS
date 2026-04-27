@@ -56,6 +56,10 @@ a {
   display: flex;
 }
 
+.prototype-sidebar > div {
+  height: 100%;
+}
+
 .prototype-main {
   min-width: 0;
   flex: 1;
@@ -113,7 +117,17 @@ a {
   display: flex;
   flex-direction: column;
   gap: var(--space-32);
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
   padding: var(--space-24);
+}
+
+.prototype-page-action {
+  width: auto;
+  align-self: flex-start;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .prototype-page-header {

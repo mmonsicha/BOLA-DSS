@@ -70,7 +70,7 @@ export function SegmentsPage() {
             Build and inspect audience groups in a local DSS-driven prototype.
           </p>
         </div>
-        <DSButton variant="primary" size="md" onClick={() => setModalOpen(true)}>
+        <DSButton className="prototype-page-action" variant="primary" size="md" onClick={() => setModalOpen(true)}>
           <Plus size={16} />
           New segment
         </DSButton>

@@ -96,7 +96,7 @@ export function LineOAPage() {
             Manage connected OA channels in a DSS-only prototype flow.
           </p>
         </div>
-        <DSButton variant="primary" size="md" onClick={() => setModalOpen(true)}>
+        <DSButton className="prototype-page-action" variant="primary" size="md" onClick={() => setModalOpen(true)}>
           <Plus size={16} />
           Connect LINE OA
         </DSButton>
